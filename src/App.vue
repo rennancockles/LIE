@@ -1,28 +1,37 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import productPage from '@/services/product'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+
+  data: () => {
+    return {
+      productPageClass: 'pagina-produto'
+    }
+  },
+
+  computed: {
+    allowedStores: () => process.env.VUE_APP_STORE_IDS
+  },
+
+  created () {
+    const shopId = window.LOJA_ID || 0
+
+    if (!this.allowedStores.includes(shopId)) {
+      console.log('LIE check: NOT OK')
+      return
+    }
+    console.log('LIE check: OK')
+
+    if (document.body.classList.contains(this.productPageClass)) {
+      productPage.handle()
+    }
   }
 }
 </script>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
