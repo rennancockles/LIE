@@ -1,4 +1,4 @@
-# li_extends
+# LIE - Loja Integrada Extensions
 
 ## Project setup
 ```
