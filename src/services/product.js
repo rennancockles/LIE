@@ -38,22 +38,16 @@ const validations = {
 const extensions = {
   validation: {
     cart: () => {
-      const elBtnBuy = document.getElementsByClassName('botao-comprar')[0]
-      const elQtyCart = document.getElementsByClassName('qtde-carrinho')[0]
+      const elQtyCart = document.getElementsByClassName('qtde-carrinho')
 
       function execute ({ min, max }) {
-        min = min || 0
-        max = max || 100000
-
-        if (min > 0) elQtyCart.value = min
-
-        elQtyCart.addEventListener('change', () => {
-          const qtyCart = parseInt(elQtyCart.value)
-          if (qtyCart < min || qtyCart > max) {
-            elBtnBuy.classList.add('hide')
-          } else {
-            elBtnBuy.classList.remove('hide')
+        elQtyCart.forEach((el) => {
+          if (min && min > 0) {
+            el.value = min
+            el.min = min
           }
+
+          if (max) el.max = max
         })
       }
 
