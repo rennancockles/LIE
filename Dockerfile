@@ -1,7 +1,7 @@
 FROM node:lts-alpine as build-stage
 WORKDIR /app
 COPY package*.json ./
-RUN yarn install
+RUN yarn install --silent
 COPY . .
 RUN yarn build
 
