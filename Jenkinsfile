@@ -19,19 +19,13 @@ pipeline {
 				    echo "VUE_APP_STORE_IDS=${env.VUE_APP_STORE_IDS}" > .env
 				"""
 
-				sh "sudo docker stop ${env.DOCKER_NAME} && sudo docker rm ${env.DOCKER_NAME} || echo Skipping Prepare Stage"
+				sh "sudo docker-compose stop"
             }
         }
 
-        stage('Build') {
+        stage('Deploy') {
             steps {
-				sh "sudo docker build -t ${env.DOCKER_NAME}:latest ."
-            }
-        }
-
-        stage('Run') {
-            steps {
-				sh "sudo docker run -d -p 8951:80 --name ${env.DOCKER_NAME} --restart=always ${env.DOCKER_NAME}:latest"
+				sh "sudo docker compose up -d"
             }
         }
     }
