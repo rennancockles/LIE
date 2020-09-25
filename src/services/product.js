@@ -6,7 +6,7 @@ let lieGroup
 
 const validations = {
   validateLieProduct: () => {
-    sku = window.dataLayer ? window.dataLayer[0].productId : ''
+    sku = document.querySelector('[itemprop=sku]') ? document.querySelector('[itemprop=sku]').textContent : ''
     isLie = /-lie.*$/i.test(sku)
 
     if (!isLie) throw new Error('Is not LIE product')
